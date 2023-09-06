@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyqku4b80noy4"]
+
+[ext_resource type="Script" path="res://Code/Score Script.gd" id="1_6ltk3"]
+[ext_resource type="PackedScene" uid="uid://bg7rpiubrhh1b" path="res://Scene/character.tscn" id="1_7r2wr"]
+[ext_resource type="PackedScene" uid="uid://ct05s8vrgf6io" path="res://Scene/bigger_enemy.tscn" id="3_6oemb"]
+[ext_resource type="PackedScene" uid="uid://chluf4qb455d5" path="res://Scene/spawner.tscn" id="3_m5r3x"]
+
+[node name="Main Scene" type="Node2D"]
+script = ExtResource("1_6ltk3")
+
+[node name="Retry" type="ColorRect" parent="."]
+visible = false
+top_level = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -62.0
+offset_top = -73.0
+offset_right = 64.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="Retry"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -169.5
+offset_top = -72.5
+offset_right = 155.5
+offset_bottom = -23.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Press Button to retry"
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Score" type="Label" parent="Background"]
+top_level = true
+layout_mode = 0
+offset_left = 232.0
+offset_top = 361.0
+offset_right = 320.0
+offset_bottom = 406.0
+theme_override_font_sizes/font_size = 30
+text = "Score:"
+
+[node name="Character" parent="." instance=ExtResource("1_7r2wr")]
+position = Vector2(383, 397)
+
+[node name="Spawner4" parent="." instance=ExtResource("3_m5r3x")]
+visible = false
+position = Vector2(732, 729)
+Enemy = ExtResource("3_6oemb")

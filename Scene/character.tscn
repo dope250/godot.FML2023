@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=3 uid="uid://bg7rpiubrhh1b"]
+
+[ext_resource type="Script" path="res://Scripts/CharacterMovement.cs" id="1_obw3x"]
+[ext_resource type="PackedScene" uid="uid://c7hm7qkkm1rb0" path="res://Scene/bullet.tscn" id="2_fsq17"]
+[ext_resource type="AudioStream" uid="uid://bant2odl7yq3y" path="res://Sounds/Player_Kill.wav" id="3_3vefl"]
+[ext_resource type="SpriteFrames" uid="uid://d17f5gmufcgm4" path="res://Gfx/Player.tres" id="3_tfatf"]
+[ext_resource type="Texture2D" uid="uid://dgpjthk0fx40f" path="res://Gfx/weapon_gun.png" id="4_7oss3"]
+[ext_resource type="AudioStream" uid="uid://d256pu1lf1eks" path="res://Sounds/weapon_pistol.wav" id="5_q6g1q"]
+[ext_resource type="SpriteFrames" uid="uid://y1eny7f7toki" path="res://Gfx/BloodDecals.tres" id="5_vgxqu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3gjl4"]
+radius = 13.0
+height = 44.0
+
+[sub_resource type="Gradient" id="Gradient_mx4jq"]
+colors = PackedColorArray(1, 0, 0, 1, 0.27, 0, 0, 1)
+
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_obw3x")
+Bullet = ExtResource("2_fsq17")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CapsuleShape2D_3gjl4")
+
+[node name="Player_Sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+rotation = 1.57079
+sprite_frames = ExtResource("3_tfatf")
+autoplay = "default"
+
+[node name="Gun" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(18, -27)
+scale = Vector2(1.091, 1)
+texture = ExtResource("4_7oss3")
+
+[node name="BulletSpawn" type="Marker2D" parent="Gun"]
+position = Vector2(9.17241, 1)
+
+[node name="GunFire" type="CPUParticles2D" parent="Gun"]
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 83.24
+angular_velocity_max = 360.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+color_ramp = SubResource("Gradient_mx4jq")
+
+[node name="Sound" type="AudioStreamPlayer" parent="Gun/GunFire"]
+stream = ExtResource("5_q6g1q")
+volume_db = -31.856
+
+[node name="Decal_Blood" type="AnimatedSprite2D" parent="."]
+visible = false
+self_modulate = Color(0.568627, 0, 0, 1)
+show_behind_parent = true
+scale = Vector2(0.4, 0.408)
+sprite_frames = ExtResource("5_vgxqu")
+speed_scale = 2.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.25, 1.25)
+position_smoothing_enabled = true
+
+[node name="Explosive" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 83.24
+angular_velocity_max = 360.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+color_ramp = SubResource("Gradient_mx4jq")
+
+[node name="Sound" type="AudioStreamPlayer" parent="Explosive"]
+stream = ExtResource("3_3vefl")
+volume_db = -31.856
